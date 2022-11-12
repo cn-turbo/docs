@@ -144,7 +144,7 @@ const theme = {
     );
   },
   editLink: {
-    text: "Edit this page on GitHub",
+    text: "在 GitHub 上编辑本页",
   },
   navbar: Navigation,
   search: {
