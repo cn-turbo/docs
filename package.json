@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "turbo-docs-cn",
   "version": "1.0.0",
   "private": true,
   "description": "turbo.build",
@@ -9,7 +9,8 @@
     "build": "next build ",
     "lint": "next lint",
     "rss": "node scripts/generate-rss.js",
-    "schema": "turbo-gen ./public/schema.json"
+    "schema": "turbo-gen ./public/schema.json",
+    "build:static": "next build && next export"
   },
   "author": "Jared Palmer",
   "license": "MPL-2.0",
