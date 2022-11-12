@@ -148,7 +148,7 @@ const theme = {
   },
   navbar: Navigation,
   search: {
-    placeholder: "Search documentation…",
+    placeholder: "搜索文档",
   },
   footer: {
     component: Footer,
