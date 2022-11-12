@@ -18,7 +18,7 @@ const theme = {
   chat: {
     icon: Discord,
   },
-  docsRepositoryBase: "https://github.com/vercel/turbo/blob/main/docs",
+  docsRepositoryBase: "https://github.com/cn-turbo/docs",
   getNextSeoProps: function SEO() {
     const router = useRouter();
     const { frontMatter } = useConfig();
