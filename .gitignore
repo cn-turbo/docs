@@ -2,8 +2,6 @@
 /public/*.toml
 /public/schema.json
 /public/feed.xml
-# Sentry
-.sentryclirc
 
 .idea/
 .next/

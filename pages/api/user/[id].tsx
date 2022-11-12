@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { withSentry } from "@sentry/nextjs";
 import {
   getSubscriber,
   Subscriber,
@@ -33,4 +32,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default withSentry(handler);
+export default handler;
