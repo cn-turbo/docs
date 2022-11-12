@@ -54,7 +54,7 @@ const theme = {
       );
     }, [timestamp]);
 
-    return <>Last updated on {dateString}</>;
+    return <>编辑时间：{dateString}</>;
   },
   unstable_flexsearch: true,
   unstable_staticImage: true,

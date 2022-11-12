@@ -79,7 +79,7 @@ export default async function openGraphImage(
       : type === "pack"
       ? "The successor to Webpack"
       : type === "repo"
-      ? "The build system that makes ship happen"
+      ? "代码交付，小菜一碟"
       : "";
 
     return new ImageResponse(createElement(OGImage, { title, type, bg }), {

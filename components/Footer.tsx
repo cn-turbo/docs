@@ -143,14 +143,6 @@ export function FooterContent() {
               </div>
             </div>
           </div>
-          <div className="mt-12 xl:!mt-0">
-            <FooterHeader>Subscribe to our newsletter</FooterHeader>
-            <p className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
-              Subscribe to the Turbo newsletter and stay updated on new releases
-              and features, guides, and case studies.
-            </p>
-            <SubmitForm />
-          </div>
         </div>
 
         <div className="pt-8 mt-8 sm:flex sm:items-center sm:justify-between">
@@ -167,6 +159,11 @@ export function FooterContent() {
             <p className="mt-4 text-xs text-gray-500 dark:text-[#888888]">
               &copy; {new Date().getFullYear()} Vercel, Inc. All rights
               reserved.
+            </p>
+
+            <p className="mt-2 text-xs text-gray-500 dark:text-[#888888]">
+              This is a Simplifed-Chinese docs. It has nothing to do with
+              Vercel. 本站为 Turbo 中文文档，与 Vercel 无任何关系。
             </p>
           </div>
         </div>
