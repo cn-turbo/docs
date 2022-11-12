@@ -1,0 +1,63 @@
+---
+title: 快速上手
+description: 开始使用 Turpopack 构建 Web 应用
+---
+
+import { TurbopackQuickstartArea } from "../../../components/TurbopackQuickstart";
+import Callout  from "../../../components/Callout";
+import { Tabs, Tab } from "../../../components/Tabs";
+import FullTurboCTA from "../../../components/FullTurboCTA";
+
+# 快速上手 Turbopack
+
+Turbopack 是专为 JavaScript 和 TypeScript 打造的，使用 Rust 开发的构建工具。由 Webpack 和 [Next.js](https://nextjs.org/) 开发者们在 [Vercel](https://vercel.com/) 共同打造。
+
+对于拥有组件数 30,000 左右的应用，Turbopack 相较于 Vite 提速可达 10 倍，而 Webpack 可达到 700 倍。对于体量最大的应用，其差异更为明显，构建速度相较于 Vite 可达 20 倍。对于组件数超过 50,000 的应用，其差异甚至更加明显，更新速度比 Vite 快 20 倍。
+
+Turpopack 性能提升的秘诀由两个部分组成，一方面机器码进行了高度优化，另一方面是打造了一个低层级递增式计算引擎，这个引擎可以缓存至函数的层级。只要 Turpopack 执行了一次构建任务，就不会再重复构建。
+
+我们的团队吸取了 Webpack 十年来的教训，结合 Turporepo 和 Google&apos;s Bazel 创新性的递增式计算，为未来几十年准备了一个计算架构。
+
+<Callout type="error">
+    Turbopack 目前处于 <strong>alpha</strong> 阶段，尚未正式投入生产构建。感谢您的支持，我们同时欢迎关于 Turbopack 的反馈，并将努力让它为大家所用。
+</Callout>
+
+## 快速上手
+
+目前 Turbopack 已经可以用在 Next.js v13 了，未来我们还会发布 CLI、插件 API，并为其它框架提供支持，比如 Svelte 和 Vue。现在，跟着以下步骤开始上手吧：
+
+1. 使用 Turbopack 创建 Next.js v13 项目
+
+```bash
+npx create-next-app --example with-turbopack
+```
+
+2. 启动 Next.js 开发服务器（使用 Turbopack）
+
+  <Tabs items={["npm", "yarn", "pnpm"]} storageKey="selected-pkg-manager">
+    <Tab>
+      ```bash
+      npm run dev
+      ```
+    </Tab>
+    <Tab>
+      ```bash
+      yarn dev
+      ```
+    </Tab>
+    <Tab>
+      ```bash
+      pnpm dev
+      ```
+    </Tab>
+  </Tabs>
+
+现在 Next.js v13 的开发服务器有 Turbopack 加持了！启动和更新速度真是说时迟那时快。对于体积越大的应用，性能提升会更为明显。
+
+## 下一步
+
+还想了解更多关于 Turbopack 的内容？下面的链接将深入介绍为何 Turbopack 如此特别。
+
+<TurbopackQuickstartArea />
+
+<FullTurboCTA />
