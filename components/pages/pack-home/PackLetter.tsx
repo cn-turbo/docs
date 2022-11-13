@@ -27,7 +27,7 @@ export function PackLetter() {
           </p>
           <br />
           <p>
-            凭借这个架构，我们激动地带来了由 Rust 驱动的 Webpack 接班人 —— Turpopack。它将利用构建系统 Turborepo 的能力，带来强劲的性能提升。
+            凭借这个架构，我们激动地带来了由 Rust 驱动的 Webpack 接班人 —— Turbopack。它将利用构建系统 Turborepo 的能力，带来强劲的性能提升。
             Turbopack 是开源的高性能、原生构建工具的新基石，我们很高兴与你一起分享它。
           </p>
         </FadeIn>

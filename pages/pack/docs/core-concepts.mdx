@@ -5,60 +5,60 @@ description: Learn about the innovative architecture that powers Turbopack's spe
 
 # 核心概念
 
-Let’s dive deep into the internals of Turbopack to figure out why it’s so fast.
+让我们深入 Turbopack 内部了解为什么它如此之快吧。
 
-## The Turbo engine
+## Turbo 引擎
 
-Turbopack is so fast because it’s built on a reusable library for Rust which enables incremental computation known as the Turbo engine. Here’s how it works:
+Turbopack 之所以这么快是因为它建立在一个可复用的 Rust Library 之上，也就是所谓的 Turbo 引擎，使其支持递增式计算。它的运作方式：
 
-### Function-level caching
+### 函数级缓存
 
-In a Turbo engine-powered program, you can mark certain functions as ‘to be remembered’. When these functions are called, the Turbo engine will remember **what they were called with**, and **what they returned**. It’ll then save it in an in-memory cache.
+在由 Turbo 驱动的程序里，你可以给特定某些函数打上「记忆」标签。当这些函数被调用时，Turbo 引擎将记住它们**调用方式及其返回值**。这些状态都将缓存到内存里。
 
-Here’s a simplified example of what this might look like in a bundler:
+下面是一个工具构建流程经简化的例子
 
 ![](/images/docs/pack/turbo-engine-first-run.png)
 
-We start with calling `readFile` on two files, `api.ts` and `sdk.ts`. We then `bundle` those files, `concat` them together, and end up with the `fullBundle` at the end. The results of all of those function calls get saved in the cache for later.
+首先，我们对 `api.ts` 和 `sdk.ts` 两个文件调用 `readFile` 函数。对这两个进行 `构建` 后，再将它们 `合并` 起来，最后得到了 `fullBundle` 文件。每个调用过的函数的返回值都会在后续进行缓存。
 
-Let’s imagine that we’re running on a dev server. You save the `sdk.ts` file on your machine. Turbopack receives the file system event, and knows it needs to recompute `readFile("sdk.ts")`:
+假设我们在运行开发服务器，当你的电脑保存 `sdk.ts` 时，Turbopack 将接收到系统文件的事件，知道要再次调用 `readFile("sdk.ts")`。
 
 ![](/images/docs/pack/turbo-engine-second-run.png)
 
-Since the result of `sdk.ts` has changed, we need to `bundle` it again, which then needs to be concatenated again.
+由于 `sdk.ts` 发生了改变，我们就需要再 `构建` 一次，然后再重新将文件合并起来。
 
-Crucially, `api.ts` hasn’t changed. We read its result from the cache and pass that to `concat` instead. So we save time by not reading it and re-bundling it again.
+至关重要的是，`api.ts` 并未发生改变。我们可以直接从缓存中读取其内容，然后再传递给 `concat` 函数，这样我们就节省了重复读取和构建文件的时间。
 
-Now imagine this in a real bundler, with thousands of files to read and transformations to execute. The mental model is the same. You can save enormous amounts of work by remembering the result of function calls and not re-doing work that’s been done before.
+假设一个构建工具有成千上万的文件需要读取和转化，这里心智模型是一样的。你可以像上面一样，通过缓存函数避免重复操作，来节省大量的工作和时间。
 
-### The cache
+### 缓存
 
-The Turbo engine currently stores its cache in memory. This means the cache will last as long as the process running it - which works well for a dev server. When you run `next dev --turbo` in Next v13, you’ll start a cache with the Turbo engine. When you cancel your dev server, the cache gets cleared.
+Turbo 引擎目前将缓存放在内存里。这就意味着缓存伴随着整个进程的生命周期，这在开发服务器中是很有用的。当你在 Next v13 运行 `next dev --turbo` 时，你就开始在用 Turbo 引擎缓存了。当你关闭了开发服务器，缓存就会被清理。
 
-In the future, we’re planning to persist this cache - either to the filesystem, or to a remote cache like Turborepo’s. This will mean that Turbopack could remember work done _across runs and machines._
+在未来，我们计划将缓存持久化。要么将缓存保存至文件系统，要么就像 Turborepo 那样远程缓存，也就是说 Turbopack 将跨运行、跨机器间支持缓存。
 
-### How does it help?
+### 这有什么用？
 
-This approach makes Turbopack extremely fast at computing incremental updates to your apps. This optimizes Turbopack for handling updates in development, meaning your dev server will always respond snappily to changes.
+这个方法令 Turbopack 能够迅速计算出应用的递增式更新，并优化 Turbopack 在开发模式下的更新任务，意味着你的开发服务器可以快速响应文件变化。
 
-In the future, a persistent cache will open the door to much faster production builds. By remembering work done _across runs_, new production builds could only rebuild changed files - potentially leading to enormous time savings.
+未来，持久化缓存将拥抱更快的生产构建。在生产构建中有了函数调用的缓存，将重新构建发生变化的文件，也许能节省大量的时间。
 
-## Compiling by Request
+## 根据请求编译
 
-The Turbo engine helps provide extremely fast _updates_ on your dev server, but there’s another important metric to consider - startup time. The faster your dev server can start running, the faster you can get to work.
+Turbo 引擎能够为开发服务器提供极快的更新体验，但还有另一个重要的考量 —— 启动时间。开发服务器启动得越快，你就能越快投入工作。
 
-There are two ways to make a process faster - work faster, or do less work. For starting up a dev server, the way to do less work is to compile _only the code that’s needed_ to get started.
+这两种方式可以加快这个过程：提高性能和减少工作量。对于启动开发服务器而言，要减少工作量就得 _仅编译需要用到的代码_。
 
-### Page-level compilation
+### 页面级编译
 
-Versions of Next.js from 2-3 years ago used to compile the _entire application_ before showing your dev server. In Next.js [11], we began compiling _only the code on the page you requested._
+两三年前的 Next.js 版本会在开发服务器启动前，编译整个应用代码。在 Next.js [11],我们开始只编译 _会被请求到的页面代码_。
 
-That’s better, but it’s not perfect. When you navigate to `/users`, we’ll bundle all the client and server modules, dynamic-imported modules, and referenced CSS and images. That means if a large part of your page is hidden from view, or hidden behind tabs, we’ll still compile it anyway.
+这个方式比以往更佳，但不还算不上优秀。当你访问 `/users` 时，我们会构建所有的客户端和服务端模块、动态导入的模块、CSS、图片文件等其它引用资源。这意味着，如果你的页面有很大一部分内容是不可见的，或者是被标签页隐藏掉了，我们仍然还是会将它们进行编译。
 
-### Request-level compilation
+### 请求级编译
 
-Turbopack is smart enough to compile _only the code you request_. That means if a browser requests HTML, we compile only the HTML - not anything that is referenced by the HTML.
+聪明的 Turbopack 会知道 _仅编译你请求的代码_。如果浏览器请求 HTML，我们只编译 HTML，不会编译 HTML 引用的资源。
 
-If a browser wants some CSS, we’ll compile only that - without compiling referenced images. Got a big charting library behind `next/dynamic`? Doesn’t compile it until the tab showing the chart is shown. Turbopack even knows _to not compile source maps unless your Chrome DevTools are open_.
+如果浏览器想要获取 CSS，我们就只编译 CSS，不会编译其引用的图片文件。假设你在 `next/dynamic` 后面引入了一个大型图表 Library，只有当标签页可见并且图表显示时，这个 Library 才会被编译。Turbopack 甚至知道只有在你打开了 Chrome DevTools 时，才编译 Source Maps
 
-If we were to use native ESM, we’d get similar behavior. Except that Native ESM produces a _lot_ of requests to the server, as discussed in our [Why Turbopack](/pack/docs/why-turbopack) section. With request-level compilation, we get to both reduce the number of requests _and_ use native speed to compile them. As you can see in our [benchmarks](/pack/docs/benchmarks), this provides significant performance improvements.
+如果我们使用原生 ESM，我们也能得到差不多的效果，除了它需要向服务器发送大量的请求，这在 [Why Turbopack](/pack/docs/why-turbopack) 章节就说过了。拥有了请求级编译，减少请求量的同时，还能有原生语言速度的加持。你可以查看 [性能测试](/pack/docs/benchmarks) 章节，了解其显著的性能提升。

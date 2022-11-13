@@ -2,9 +2,9 @@
   "index": "快速上手",
   "why-turbopack": "Why Turbopack?",
   "core-concepts": "核心概念",
-  "roadmap": "Roadmap",
-  "features": "Features",
-  "comparisons": "Comparisons",
-  "benchmarks": "Benchmarks",
+  "roadmap": "项目规划",
+  "features": "Turbopack 功能",
+  "comparisons": "工具比较",
+  "benchmarks": "性能测试",
   "migrating-from-webpack": "从 Webpack 移植"
 }
