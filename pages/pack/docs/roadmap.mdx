@@ -1,33 +1,33 @@
-# Roadmap
+# 项目规划
 
-We've got big plans for Turbopack. Here's what we're aiming for in the future:
+我们对 Turbopack 有不小的规划，以下未来准备开发的功能：
 
 ## Next.js
 
-Right now, Turbopack is being used as an opt-in feature in Next.js's dev server. This is helping to create an extremely fast experience in local development that scales to big projects.
+目前，Turbopack 已经是 Next.js 可选的开发服务器，这可以在本地开发大型应用时，获得超级丝滑的体验。
 
-Next, we want to use Turbopack to power production builds with Next.js. We think that this will result in a big boost in performance, especially when integrated with remote caching.
+接下来，我们想要让 Turbopack 用于 Next.js 生产构建。我们认为这将极大提升性能，尤其有远程缓存的加持下。
 
 ## Svelte
 
-We're planning to build a first-class integration with Svelte to let Turbopack power the next generation of SvelteKit applications.
+我们计划为 Svelte 提供一流的整合，让 Turbopack 驱动下一代 SvelteKit 应用。
 
-## Other Frameworks
+## 其它框架
 
-We are in active discussions with other frameworks to bring Turbopack to their users. We're excited to see what we can build together!
+我们正积极与其它框架讨论如何将 Turbopack 带给它们的用户，并万分期待能够携手并进。
 
-## Remote Caching and Replication
+## 远程缓存与复制
 
-Turbopack is built from the ground up to take advantage of [caching](/pack/docs/core-concepts#the-turbo-engine). Currently, this cache is stored in-memory only. This lets us optimize for our current use case - making the Next.js dev server fast.
+Turbopack 凭借 [缓存](/pack/docs/core-concepts#the-turbo-engine) 的优势应运而生。目前，缓存仅保存在内存里，这让我们在优化 Next.js 开发服务器留有空间。
 
-In the future, we plan to persist this cache to the file system, to speed up Turbopack between runs. This will work similarly to [Turborepo's cache](/repo/docs/core-concepts/caching) - but at a much more granular level. Turborepo can currently only cache the results of entire builds. Turbopack, however, can cache the results of individual functions within those builds - saving much more time over subsequent runs.
+在未来，我们计划将缓存持久化，将缓存保存至文件系统，加快 Turbopack 的运行速度。这和 [Turborepo](/repo/docs/core-concepts/caching) 的缓存方式很像，但会有更小的颗粒度。Turborepo 目前只能缓存整个构建的结果，而 Turbopack 可以缓存构建中每个函数的结果以节省许多时间。
 
-Once persisting to the file system is working, we can build the next logical step: persisting to a remote cache. With Turborepo, we've already built [remote caching](/repo/docs/core-concepts/remote-caching) on Vercel. In the future, you'll be able to _share_ Turbopack's hyper-granular cache across your whole team, using the Vercel Remote Cache.
+如果缓存至文件系统可行的话，我们会更进一步实现远程缓存。在 Vercel，我们已经在 Turborepo 身上实现了 [远程缓存](/repo/docs/core-concepts/remote-caching)。未来通过使用 Vercel 远程缓存，你可以与你的团队共享 Turbopack 超颗粒化的缓存。
 
-## Migration for Webpack users
+## 从 Webpack 移植
 
-To learn more about our future plans for Webpack integration, check out our [从 Webpack 移植](/pack/docs/migrating-from-webpack) page.
+若要了解更多未来 Webpack 移植整合计划的内容，你可查看 [从 Webpack 移植](/pack/docs/migrating-from-webpack) 章节。
 
-## Fusion with Turborepo
+## 与 Turborepo 合并
 
-We are currently migrating/rewriting Turborepo in Rust. In the future, Turborepo and Turbopack will merge into a single toolchain--Turbo--that can be used as either a bundler or a build system or both.
+我们正在将 Rust 重写并移植到 Rust。未来，Turborepo 和 Turbopack 将合并成单一的工具链 —— Turbo，它将同时成为构建工具和构建系统。
