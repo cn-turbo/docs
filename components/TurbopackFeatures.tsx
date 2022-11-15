@@ -16,7 +16,7 @@ export const TurbopackFeatures = () => {
       <DetailedFeatureLink
         feature={{
           Icon: JSIcon,
-          description: `Supports all ESNext features, Browserslist and top-level await.`,
+          description: `支持 ESNext 所有功能、Browserslist 和 top-level await。`,
           name: "JavaScript",
         }}
         href="/pack/docs/features/javascript"
@@ -26,8 +26,7 @@ export const TurbopackFeatures = () => {
           Icon: TSIcon,
           description: (
             <p>
-              Supports TypeScript out of the box, including resolving{" "}
-              <code>paths</code> and <code>baseUrl</code>.
+             TypeScript 开箱即用，包括 <code>paths</code> and <code>baseUrl</code> 解析。
             </p>
           ),
           name: "TypeScript",
@@ -39,19 +38,18 @@ export const TurbopackFeatures = () => {
           Icon: DownloadIcon,
           description: (
             <p>
-              Supports <code>require</code>, <code>import</code>, dynamic
-              imports and more.
+              支持 <code>require</code>、<code>import</code>、动态导入等。 
             </p>
           ),
-          name: "Imports",
+          name: "模块导入",
         }}
         href="/pack/docs/features/imports"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
           Icon: DesktopComputerIcon,
-          description: `Our optimized dev server supports Hot Module Reloading (HMR) and Fast Refresh.`,
-          name: "Dev Server",
+          description: `经过优化的开发服务器支持热模块重载（HMR） 和快速刷新。`,
+          name: "开发服务器",
         }}
         href="/pack/docs/features/dev-server"
       ></DetailedFeatureLink>
@@ -60,8 +58,7 @@ export const TurbopackFeatures = () => {
           Icon: CSSIcon,
           description: (
             <p>
-              Supports Global CSS, CSS Modules, postcss-nested and{" "}
-              <code>@import</code>.
+              支持全局 CSS,、CSS Modules、<code>@import</code>，并内置了 PostCSS。
             </p>
           ),
           name: "CSS",
@@ -73,11 +70,10 @@ export const TurbopackFeatures = () => {
           Icon: ArchiveIcon,
           description: (
             <p>
-              Learn about Next.js, Svelte, Vue and React Server Components
-              support.
+              了解关于 Next.js、 Svelte、Vue 和 React 服务端组件相关支持。
             </p>
           ),
-          name: "Frameworks",
+          name: "框架",
         }}
         href="/pack/docs/features/frameworks"
       ></DetailedFeatureLink>
@@ -86,11 +82,10 @@ export const TurbopackFeatures = () => {
           Icon: ServerIcon,
           description: (
             <p>
-              Supports the <code>/public</code> directory, JSON imports, and
-              importing assets via ESM.
+              支持 <code>/public</code> 目录、JSON 导入，以及使用 ESM 导入静态资源。
             </p>
           ),
-          name: "Static Assets",
+          name: "静态资源",
         }}
         href="/pack/docs/features/static-assets"
       ></DetailedFeatureLink>
@@ -99,11 +94,10 @@ export const TurbopackFeatures = () => {
           Icon: AdjustmentsIcon,
           description: (
             <p>
-              Supports environment variables via <code>.env</code>,{" "}
-              <code>.env.local</code>, and more.
+              支持通过 <code>.env</code>、<code>.env.local</code> 等配置环境变量。
             </p>
           ),
-          name: "Environment Variables",
+          name: "环境变量",
         }}
         href="/pack/docs/features/environment-variables"
       ></DetailedFeatureLink>

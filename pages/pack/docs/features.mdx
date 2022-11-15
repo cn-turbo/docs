@@ -1,22 +1,22 @@
 ---
-title: Features
-description: Learn about Turbopack's supported features
+title: Turbopack 功能
+description: 了解 Turbopack 的功能
 ---
 
 import { TurbopackFeatures } from '../../../components/TurbopackFeatures'
 
-# Features
+# Turbopack 功能
 
-The practice of building web applications is enormously diverse. In CSS alone, you have SCSS, Less, CSS Modules, PostCSS, and hundreds of other libraries. Frameworks like React, Vue and Svelte require custom setups.
+开发 Web 应用的方式形形色色，光 CSS 而言，就要 SCSS、Less、CSS Modules、PostCSS 等成百上千的 Library 可供选择。而对于 React、Vue 和 Svelte 这些框架就需要额外的配置。
 
-When building a bundler, we needed to consider which features would be:
+我们在开发构建工具时，需要考量功能要如何开发：
 
-- **Built-in**: they work out of the box, no config required
-- **Available via plugins**: usually installed from a registry and configured
-- **Unavailable**: not available at all
+- **内置功能**: 开箱即用，无需配置
+- **通过插件**: 通常从包管理器安装，并经过了配置
+- **不支持**: 完全不支持此功能
 
-**Turbopack is in alpha**, so very few of these decisions are set in stone. In its current state, **Turbopack cannot yet be configured** - so plugins are not available yet.
+**Turbopack 处于 alpha 阶段**，所以只有极少的功能确定了开发方案。就目前来说, **Turbopack 还不能够进行配置**，因此还不支持插件.
 
-Let's discuss which features are available out-of-the-box, in Turbopack's default configuration. We'll also touch on features which will be configurable via plugins.
+让我们了解下，在 Turbopack 哪些功能是开箱即用的，同时也会提及哪些功能可以使用插件引入。
 
 <TurbopackFeatures />
