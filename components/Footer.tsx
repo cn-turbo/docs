@@ -1,6 +1,5 @@
-import { useRouter } from "next/router";
 import Link from "next/link";
-import { useState, ReactNode, ReactElement } from "react";
+import { ReactNode, ReactElement } from "react";
 import cn from "classnames";
 import { ThemeSwitch } from "nextra-theme-docs";
 import VercelLogo from "./logos/Vercel";
@@ -156,11 +155,6 @@ export function FooterContent() {
             >
               <VercelLogo />
             </a>
-            <p className="mt-4 text-xs text-gray-500 dark:text-[#888888]">
-              &copy; {new Date().getFullYear()} Vercel, Inc. All rights
-              reserved.
-            </p>
-
             <p className="mt-2 text-xs text-gray-500 dark:text-[#888888]">
               This is a Simplifed-Chinese docs. It has nothing to do with
               Vercel. 本站为 Turbo 中文文档，与 Vercel 无任何关系。
@@ -169,53 +163,6 @@ export function FooterContent() {
         </div>
       </div>
     </div>
-  );
-}
-
-function SubmitForm() {
-  const [email, setEmail] = useState("");
-  const router = useRouter();
-  return (
-    <form
-      className="mt-4 sm:flex sm:max-w-md"
-      onSubmit={(e) => {
-        fetch("/api/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            return router.push("/confirm");
-          });
-        e.preventDefault();
-      }}
-    >
-      <label htmlFor="email-address" className="sr-only">
-        Email address
-      </label>
-      <input
-        type="email"
-        name="email-address"
-        id="email-address"
-        autoComplete="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border-[#666666] dark:border-[#888888] w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border rounded-md appearance-none dark:text-white sm:text-sm dark:bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:border-white focus:placeholder-gray-400"
-        placeholder="you@example.com"
-      />
-      <div className="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-        <button
-          type="submit"
-          className="flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white bg-black border border-transparent rounded-md dark:bg-white dark:text-black sm:text-sm betterhover:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:ring-white dark:betterhover:hover:bg-gray-300"
-        >
-          Subscribe
-        </button>
-      </div>
-    </form>
   );
 }
 
