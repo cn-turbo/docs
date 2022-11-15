@@ -128,7 +128,7 @@ const PACK_FEATURES: Features = [
   },
   {
     name: "React 服务端组件",
-    description: `Turpoback 原生支持 React 服务端组件。`,
+    description: `Turboback 原生支持 React 服务端组件。`,
     iconDark: ServerComponentsIconDark,
     iconLight: ServerComponentsIconLight,
     page: "all",

@@ -23,7 +23,7 @@ export function PackLetter() {
           </p>
           <br />
           <p>
-            这个团队吸取了 Webpack 十年来的教训，结合 Turporepo 和 Google&apos;s Bazel 的递增式计算，发明了为下一个十年打造的构建架构。
+            这个团队吸取了 Webpack 十年来的教训，结合 Turborepo 和 Google&apos;s Bazel 的递增式计算，发明了为下一个十年打造的构建架构。
           </p>
           <br />
           <p>
