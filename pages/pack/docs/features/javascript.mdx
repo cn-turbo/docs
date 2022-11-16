@@ -2,15 +2,13 @@ import Callout from "../../../../components/Callout";
 
 # JavaScript
 
-## ECMAScript Support
+## ECMAScript 支持
 
-Turbopack uses [SWC](https://swc.rs/) to bundle JavaScript and TypeScript files. So, we match SWC's support for ECMAScript versions - anything that SWC supports, Turbopack will support.
-
-This means that by default **we support all syntax in ESNext**.
+Turbopack 使用 [SWC](https://swc.rs/) 构建 JavaScript 和 TypeScript 代码。因此我们将 SWC 与 ECMAScript 版本相匹配，凡是 SWC 支持的版本，Turbopack 同样支持，也就是说 Turbopack **默认支持所有 ESNext 语法**。
 
 ## Browserslist
 
-[Browserslist](https://github.com/browserslist/browserslist) has become an industry standard for defining which browsers you plan to target. To make use of it, you can add a `browserslist` field to your `package.json`:
+针对配置代码构建的目标浏览器，使用 [Browserslist](https://github.com/browserslist/browserslist) 已成为行业标准。若要使用此功能，你可在 `package.json` 添加 `browserslist` 字段：
 
 ```json filename="package.json"
 {
@@ -22,18 +20,16 @@ This means that by default **we support all syntax in ESNext**.
 }
 ```
 
-Turbopack supports Browserslist **out-of-the-box**. We pass the information we find in your `package.json` to SWC, which handles [`browserslist` support](https://swc.rs/docs/configuration/supported-browsers) for us.
-
-This means you can feel comfortable using Turbopack to target legacy browsers, or deciding to only ship code to modern browsers.
+Turbopack 原生支持 Browserslist，它会将 `package.json` 的信息传递给 SWC 以提供 [`browserslist` 功能](https://swc.rs/docs/configuration/supported-browsers)。也就是说你可以使用 Turbopack 轻松决定要为传统浏览器或现代浏览器构建代码。
 
 <Callout type="info">
-  Turbopack is available in alpha preview with a dev server, which uses a pre-set minimal browserslist to minimize transformation during development. In a future release, Turbopack will build apps for production targeting your defined browserslist.
+  Turbopack 及其开发服务器正处于 alpha 预览阶段，目前在开发时将预设最小的 browserslist 配置以最大程度减少代码转换。在未来的发行版本，Turbopack 将根据你配置的 browserslist 为相应的环境构建代码。
 </Callout>
 
 ## Babel
 
-[Babel](https://babel.dev/) allows you to add custom transformations to your code to provide custom syntax, including support for early language proposals.
+[Babel](https://babel.dev/) 可为代码中自定义语法提供相应的转换，包括处于早期提案的语法。
 
-Babel plugins are currently **not supported** on Turbopack. In our default configuration, we don't use Babel to compile JavaScript or TypeScript code.
+Turbopack 目前还不支持 Babel 插件。在默认配置中，我们没有使用 Babel 编译 JavaScript 或 TypeScript 代码。
 
-In the future, Babel support will be provided via plugins.
+未来将通过插件的形式，为 Babel 提供支持。
