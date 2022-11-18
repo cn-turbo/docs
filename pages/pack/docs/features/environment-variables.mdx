@@ -1,15 +1,15 @@
-# Environment variables
+# 环境变量
 
-## `.env` files
+## `.env` 文件
 
-Turbopack will parse and inject `.env` files out of the box.
+Turbopack 原生支持通过解析 `.env` 注入环境变量。
 
 ```
 NEXT_PUBLIC_DEPLOYMENT_NAME="my-site"
 DATABASE_URL="postgres://"
 ```
 
-This includes all the variations these files come in:
+所有的环境变量将从以下文件读取：
 
 ```
 .env
@@ -18,12 +18,12 @@ This includes all the variations these files come in:
 .env.production.local
 ```
 
-### Live reloading
+### 实时重载
 
-Not only that, but Turbopack will live reload when these values change. Restarting your dev server just to inject a new environment variable can be extremely annoying - Turbopack does it for you.
+不仅如此，Turbopack 还会实时重载这些环境变量。通过重启开发服务器重新注入环境变量是挺令人烦恼的，Turbopack 帮你解决了这个痛点。
 
 ## `process.env`
 
-Environment variables will be injected into `process.env`. For instance, `DATABASE_URL` will be on `process.env.DATABASE_URL`.
+环境变量会被注入到 `process.env`，比方说 `DATABASE_URL` 会被挂载到 `process.env.DATABASE_URL`。
 
-This follows the tradition of Node.js, Webpack 5 and Next.js 12, which each use `process.env` for variable injection.
+这和 Node.js、 Webpack 5 和  Next.js 12 的作法相同，在 `process.env` 注入环境变量。
