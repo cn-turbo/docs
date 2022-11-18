@@ -1,12 +1,12 @@
-# Imports
+# 模块导入
 
-Turbopack supports CJS and ESM imports out of the box, and offers partial support for AMD.
+Turbopack 原生支持 CJS、ESM 和部分支持 AMD 模块导入。
 
-Turbopack bundles your application, so imports won't be resolved to native browser ESM. You can learn why in our [bundling vs Native ESM](/pack/docs/why-turbopack#bundling-vs-native-esm) section.
+Turbopack 会构建应用代码，所以模块导入不会被转换为浏览器的 ESM 模块。你可以在[构建代码 vs 原生ESM](/pack/docs/why-turbopack#bundling-vs-native-esm)章节了解原因。
 
 ## CommonJS
 
-Turbopack supports the `require` syntax out-of-the-box:
+Turbopack 原生支持 `require` 语法。
 
 ```ts
 const { add } = require('./math');
@@ -14,7 +14,7 @@ const { add } = require('./math');
 add(1, 2);
 ```
 
-We also support dynamic `require()` syntax, for if you want to import a dynamically named asset:
+Turbopack 还支持动态 `require()` 语法，因此你可以导入动态命名的资源：
 
 ```ts
 const imgName = getRandomImgName();
@@ -24,7 +24,7 @@ const img = require(`./images/${imgName}.png`);
 
 ## ESM
 
-Importing via the `import` syntax is also supported out-of-the-box. This includes static assets, and `import type`:
+通过 `import` 语法导入模块也是原生支持的，其中包括导入静态资源和 `import type` 导入类型：
 
 ```ts
 import img from './img.png';
@@ -34,9 +34,9 @@ import type { User } from '../server/types';
 import { z } from 'zod';
 ```
 
-## Dynamic Imports
+## 动态导入
 
-Turbopack supports dynamic imports via `import()`:
+Turbopack 支持使用 `import()` 动态导入:
 
 ```ts
 const getFeatureFlags = () => {
