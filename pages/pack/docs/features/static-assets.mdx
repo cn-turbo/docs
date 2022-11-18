@@ -1,10 +1,10 @@
-# Static Assets
+# 静态资源
 
-Part of bundling for the web is handling all the asset types the web supports - images, videos, JSON, fonts, and much more. Turbopack offers familiar tools for these so you can immediately get productive.
+构建 Web 应用的一部分任务是处理各种各样的静态资源，如图片、视频、JSON、字体等。Turbopack 为这些资源提供用法差不多的工具，这样你就可以快速上手。
 
-## Import static assets
+## 导入静态资源
 
-Importing static assets works out of the box with Turbopack:
+Turbopack 原生支持导入静态资源。
 
 ```ts
 import img from './img.png'
@@ -14,7 +14,7 @@ import audio from './audio.wav'
 
 ### Next.js
 
-In Webpack and some other frameworks, importing an image returns a string containing that image's URL.
+在 Webpack 和其它框架中，导入一张图片会返回图片的 URL。
 
 ```ts
 import img from './img.png';
@@ -22,25 +22,25 @@ import img from './img.png';
 console.log(img); // /assets/static/1uahwd98h123.png
 ```
 
-In Next.js, importing an image actually returns an object, containing various metadata about the image. This is so it can be fed into [Next.js's Image component](https://nextjs.org/docs/basic-features/image-optimization#local-images).
+在 Next.js 中，导入一张图片会返回一个对象，这个对象包含图片各种元数据，这样它才能由 [Next.js 图片组件](https://nextjs.org/docs/basic-features/image-optimization#local-images) 处理。
 
-The behavior of extracting an object of metadata from the image is **not yet supported**. For now, imported images will resolve to strings.
+目前，**暂不支持**从图片提取出元数据对象，而是将图片转为字符串。
 
-## Public directory
+## Public 目录
 
-The `/public` directory lets you place assets which you want to be available on the root URL of the website. For instance, `public/favicon.png` will be available at `https://example/favicon.png`.
+你可以在 `/public` 目录放置静态资源，这样资源就通过网站的根 URL 获取。举个例子，`public/favicon.png` 就可以使用 `https://example/favicon.png` 访问。
 
-In Turbopack, the `/public` directory is supported out of the box.
+Turbopack 原生支持 `/public` 目录。
 
 ## JSON
 
-Most frameworks allow you to import JSON directly into your application:
+大多框架都能够在应用里直接导入 JSON：
 
 ```ts
 import fixtures from './fixtures.json';
 ```
 
-This is supported out of the box with Turbopack, as is performing a named import on that JSON:
+这个功能同样也是 Turbopack 原生支持的，通过 named import 进行 JSON 引入：
 
 ```ts
 import { users, posts } from './fixtures.json';
