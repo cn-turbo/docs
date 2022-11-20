@@ -4,16 +4,17 @@ import Callout from '../../../components/Callout';
 import { ThemedImageFigure } from '../../../components/image/ThemedImageFigure';
 import { HMR_BARS } from '../../../components/pages/pack-home/PackBenchmarks'
 
-# Benchmarks
+# 性能测试
 
-We created a test generator that makes an application with a variable amount of modules to benchmark cold startup and file updating tasks. This generated app includes entries for these tools:
+我们创建了一个测试生成器，用于生成各种不同模块数的应用来测试冷启动和文件更新性能。生成的应用包含为以下工具提供的构建入口：
 
 - Next.js 11
 - Next.js 12
-- Next.js 13 with Turbopack
+- 带 Turbopack 的 Next.js 13
 - Vite
 
-As the current state of the art, we're including [Vite](https://vitejs.dev/) along with Webpack-based [Next.js](https://nextjs.org) solutions. All of these toolchains point to the same generated component tree, assembling a [Sierpiński triangle](https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle) in the browser, where every triangle is a separate module.
+谢尔宾斯基三角形
+就目前的技术而言，我们将引入 [Vite](https://vitejs.dev/) 和基于 Webpack 的 [Next.js](https://nextjs.org) 进行测试。所有这些工具都将生成相同的组件树，用于在浏览器组装一个[谢尔宾斯基三角形](https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle)三角形，这里面的每一个三角形都是单独的一个模块。
 
 <ThemedImageFigure
   borderRadius={false}
@@ -28,20 +29,20 @@ As the current state of the art, we're including [Vite](https://vitejs.dev/) alo
     width: 1200
   }}
   captionSpacing={-12}
-  caption="This image is a screenshot of the test application we run our benchmarks on. It depicts a Sierpiński triangle where each single triangle is its own component, separated in its own file. In this example, there are 3,000 triangles being rendered to the screen."
+  caption="此截图是我们用于性能测试的所运行的应用，它代表着每个三角形都是一个组件分布于单独的文件。在这个例子中，屏幕上渲染了 3,000 个三角形。"
 />
 
-## Metrics
+## 指标
 
-Let's break down exactly what each of these metrics mean, and how they'll impact your day-to-day developer experience.
+我们来拆解分析下各指标的意义，以及它们是如何影响你日常开发体验。
 
 <Callout type="info">
-  Curious about how these benchmarks are implemented, or want to run them yourself? Check out [our benchmark suite documentation in the Turbo monorepo](https://github.com/vercel/turbo/blob/main/crates/next-dev/benches/README.md).
+  如果你对这些性能测试感到疑问，或想要自己执行测试，你可阅读。[基于 Turbo 的性能测试套件文档](https://github.com/vercel/turbo/blob/main/crates/next-dev/benches/README.md)。
 </Callout>
 
-### Cold startup time
+### 冷启动时间
 
-This test measures how fast a local development server starts up on an application of various sizes. We measure this as the time from startup (without cache) until the app is rendered in the browser. We do not wait for the app to be interactive or hydrated in the browser for this dataset.
+这项指标用于测量本地开发服务器启动各种规模应用的速度。这项指标根据启动时（不带缓存）至浏览器渲染应用的时间进行测算，这里不包括应用可交互或注水（hydrated）时机。
 
 <DocsBenchmarksGraph category="cold" bars={DEFAULT_BARS} />
 
@@ -58,18 +59,18 @@ This test measures how fast a local development server starts up on an applicati
     width: 1960
   }}
   captionSpacing={24}
-  caption="Startup time by module count. Benchmark data generated from 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115)."
+  caption="不同模块数的启动时间。测试数据在 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115) 上生成。"
 />
 
-#### Data
+#### 测试数据
 
-To run this benchmark yourself, clone [`vercel/turbo`](https://github.com/vercel/turbo) and then use this command from the root:
+若要自行执行性能测试，请克隆 [`vercel/turbo`](https://github.com/vercel/turbo) 仓库并在其根目录执行以下命令：
 
 ```sh
 TURBOPACK_BENCH_COUNTS=1000,5000,10000,30000 TURBOPACK_BENCH_BUNDLERS=all cargo bench -p next-dev "startup/(Turbopack SSR|Next.js 12 SSR|Next.js 11 SSR|Vite CSR)."
 ```
 
-Here are the numbers we were able to produce on a 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115):
+以下测试数据在 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115) 上生成：
 
 ```sh
 bench_startup/Next.js 11 SSR/1000 modules              7.7±0.06s
@@ -90,15 +91,15 @@ bench_startup/Vite CSR/10000 modules                  37.2±0.29s
 bench_startup/Vite CSR/30000 modules                 109.5±1.14s
 ```
 
-### File updates (HMR)
+### 文件更新 (HMR)
 
-We also measure how quickly the development server works from when an update is applied to a source file to when we receive a custom browser event that the modified code was executed.
+我们还测量了开发服务器能够以多快的速度，在文件更新时将更新事件发送至浏览器并执行。
 
-Note that executing modified code does not mean that the changes are visible to the user yet. When a React component changes, it still needs to be re-rendered by the browser. With this methodology, we are focusing _only_ on the time the compiler takes to do its work and the time it takes for the browser to evaluate an updated module.
+请注意，执行更新后的代码并不意味着用户就可以看到其变化。当 React 组件发生更新，它仍然需要由浏览器重新渲染。在这种方法中，我们 _仅_ 测量编译器所花费的时间。
 
-For Hot Module Reloading (HMR) benchmarks, we first start the dev server on a fresh installation with the test application. We then run five changes to warm up the tooling. This step is important as it prevents discrepancies that can arise with cold processes.
+针对热模块重载（HMR）的性能测试，我们首先在一个新安装的测试应用启动开发服务器，然后执行五次文件更新来预热构建工具。这一步很重要，因为它可以避免在冷启动阶段所造成的差异。
 
-Once our tooling is warmed up, we measure the sixth file update. After repeating this 10 times, we use the average as our final number.
+工具预热完成后，我们将测量第六次文件更新的时间，在重复十次之后，取平均值作为指标。
 
 <DocsBenchmarksGraph category="file_change" bars={HMR_BARS} />
 
@@ -115,7 +116,7 @@ Once our tooling is warmed up, we measure the sixth file update. After repeating
     width: 1960
   }}
   captionSpacing={24}
-  caption="Turbopack vs. Next.js (Webpack) vs. Vite HMR by module count. Benchmark data generated from 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115)."
+  caption="根据模块数测试 Turbopack、Next.js (Webpack)、Vite HMR。测试数据在 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115) 上生成。"
 />
 
 <div id="bench"/>
@@ -133,27 +134,27 @@ Once our tooling is warmed up, we measure the sixth file update. After repeating
     width: 1960
   }}
   captionSpacing={24}
-  caption="Turbopack vs. Vite HMR by module count. Benchmark data generated from 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115)."
+    caption="根据模块数测试 Turbopack 与 Vite HMR。测试数据在 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115) 上生成。"
 />
 
-From our benchmarks, we find the following:
+根据性能测试，我们发现：
 
-- Turbopack HMR is **10x faster than Vite once the application scales above 30k modules**. These marks continue to improve with more modules, showing 20x faster above 50k modules.
-- Turbopack HMR is **700x faster than Webpack-based Next.js 11** for large applications with over 50k modules.
+- Turbopack HMR **在应用模块数达到 30,000 时比 Vite 快 10 倍**。随着模块数的增加性能提升越为显著，在模块数达到 50,000 时能够快出 20 倍。
+- Turbopack HMR **比基于 Webpack 的 Next.js 11 快 700 倍**，对于模块数超过 50,000 的应用。
 
-The takeaway: Turbopack performance is a function of **the size of an update**, not the size of an application.
+要点：Turbopack 的性能取决于 **单次更新大小**，而不是应用体积。
 
-We're excited by Turbopack's performance, but we also expect to make further speed improvements for both small and large applications in the future. For more info, visit the comparison docs for [Vite](/pack/docs/comparisons/turbopack-vs-vite) and [Webpack](/pack/docs/comparisons/turbopack-vs-webpack).
+我们雀跃于 Turbopack 的性能，我们也期望在未来能够为中小型应用带来更多的性能提升。若要获取更多相关信息，请访问性能对比文档 [Vite](/pack/docs/comparisons/turbopack-vs-vite) 和 [Webpack](/pack/docs/comparisons/turbopack-vs-webpack)。
 
-#### Data
+#### 测试测试
 
-To run this benchmark yourself, clone [`vercel/turbo`](https://github.com/vercel/turbo) and then use this command from the root:
+若要自行执行性能测试，请克隆 [`vercel/turbo`](https://github.com/vercel/turbo) 仓库并在其根目录执行以下命令：
 
 ```
 TURBOPACK_BENCH_COUNTS=10,100,200,500,1000,2000,3000,4000,5000,10000,20000,30000,50000 TURBOPACK_BENCH_BUNDLERS=all cargo bench -p next-dev "hmr_to_eval/(Turbopack SSR|Next.js 12 SSR|Next.js 11 SSR|Vite CSR)"
 ```
 
-Here are the numbers we were able to produce on a 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115):
+以下测试数据在 14” MacBook Pro 2021, M1 Max, 64GB RAM, macOS 12.6 (21G115) 上生成：
 
 ```sh
 bench_hmr_to_eval/Next.js 11 SSR/10 modules         77.9±21.03ms
@@ -210,4 +211,4 @@ bench_hmr_to_eval/Vite CSR/30000 modules           256.2±67.72ms
 bench_hmr_to_eval/Vite CSR/50000 modules          509.8±137.92ms
 ```
 
-If you have questions about the benchmark, please open an [issue on GitHub](https://github.com/vercel/turbo/issues).
+若对性能测试有其它疑问，请在 [GitHub 创建 issue](https://github.com/vercel/turbo/issues)。
