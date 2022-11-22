@@ -1,6 +1,6 @@
 ---
 title: Turbopack vs. Vite
-description: Compare Turbopack vs. Vite
+description: Turbopack vs. Vite 性能对比
 ---
 
 import { DocsBenchmarksGraph } from '../../../../components/pages/pack-home/DocsBenchmarksGraph';
@@ -10,25 +10,25 @@ import Callout from '../../../../components/Callout'
 
 # Turbopack vs Vite
 
-[Vite](https://vitejs.dev/) is an incredibly fast (non-)bundler that the web development community is extremely excited about - and so are we. Vite has raised the bar for web development and shown us what is possible for the future of the Web. If we were going to build a bundler, it had to perform at least as good as the (already impressive) Vite to validate our efforts. We're proud to say that we achieved that.
+[Vite](https://vitejs.dev/) 是一个性能卓越无需进行代码构建的工具，我们与 Web 开发社区都对它感到无比兴奋。Vite 更进一步展示未来 Web 开发体验的更多可能性。如果我们要开发一个构建工具，肯定要用 Vite 来证明我们所打造的工具性能更为出色。我们很高兴我们确实做到了这点。
 
 <BenchmarksCallout />
 
-## Speed
+## 速度
 
-Turbopack can outperform Vite on several key metrics.
+Turbopack 在多项关键指标上性能优于 Vite。
 
-### Dev server startup time
+### 开发服务器启动时间
 
-Vite is a non-bundler, which means it doesn't bundle your code at all. It sends each module directly to the browser. This means the browser does the hard work of handling dependencies between modules.
+Vite 是无需进行代码构建的，它直接将模块发送给浏览器，也就是说浏览器要处理大量模块依赖。
 
-On the surface, this seems like an unfair fight. Turbopack _bundles_ your application, meaning that a lot more work needs doing _before_ sending the code to the browser.
+从表面上看，这不像是一场公平的竞争。Turbopack 会构建你的应用代码，意味着在将代码发送至浏览器前需要处理大量任务。
 
-But it turns out that Turbopack can handle this _faster_ than the browser can. By pre-bundling, we can save a lot of time over Vite's Native ESM system. You can learn more about this in our [Why Turbopack](/pack/docs/why-turbopack#bundling-vs-native-esm) section.
+不过 Turbopack 处理模块依赖要比浏览器快多了。通过预构建，我们可以比 Vite 使用的原生 ESM 节省更多时间。你可以访问 [Why Turbopack](/pack/docs/why-turbopack#bundling-vs-native-esm) 章节了解更多详情。
 
-This means that Turbopack's dev server starts up much faster than Vite's. On a 1,000 module application, Vite takes <DocsBenchmarkStat stat="vite-cold-1000" /> to start up. Turbopack starts up in <DocsBenchmarkStat stat="turbopack-cold-1000" /> - **<DocsBenchmarkStat stat="turbopack-cold-vs-vite" /> faster**.
+这意味着 Turbopack 的开发服务器要快于 Vite。对于有 1,000 个模块的应用，Vite 需要 <DocsBenchmarkStat stat="vite-cold-1000" /> 启动，而 Turbopack 仅需 <DocsBenchmarkStat stat="turbopack-cold-1000" /> —— 快出 <DocsBenchmarkStat stat="turbopack-cold-vs-vite" />。
 
-In large applications, this differential stays consistent. In a 30,000 module application, Turbopack starts up <DocsBenchmarkStat stat="turbopack-cold-vs-vite-30000" /> faster than Vite.
+对于模块较多的应用，这个差异保持不变。在模块数达到 30,000 时，Turbopack 启动速度可达到 **<DocsBenchmarkStat stat="turbopack-cold-vs-vite-30000" /> 快于 Vite**。
 
 <DocsBenchmarksGraph category="cold" bars={[
   {
@@ -42,13 +42,13 @@ In large applications, this differential stays consistent. In a 30,000 module ap
   }
 ]} />
 
-### Code updates
+### 代码更新
 
-Vite is extremely fast in development because of its speedy Fast Refresh capabilities. When you update a file, Vite uses its Native ESM system to to send the updated module to the browser - and performs a little bit of magic to integrate that into the existing module graph.
+Vite 丝滑的开发体验得益于它的快速刷新能力。当你更新一个文件时，Vite 使用原生 ESM 系统向浏览器发送一个更新的模块，并通过一些方式将其整合到现有的模块依赖图。
 
-In Turbopack, we discovered that for Fast Refresh, we don't really need to do bundling work at all. We can send updates in a similar style to Vite. In fact - a little bit more efficently: Turbopack sends changed modules directly through the WebSocket without doing any bundling at all.
+而在 Turbopack 上，我们发现我们并不需要一开始就构建所有的代码。我们更新代码的方式和 Vite 相似，但是效率会更高一点：Turbopack 通过 WebSocket 发送更新的模块，并且不需要进行任何构建。
 
-In a 1,000 module application, Turbopack can react to file changes **<DocsBenchmarkStat stat="turbopack-update-vs-vite" /> faster** than Vite.
+对于有 1,000 个模块应用，Turbopack 的文件更新可达到 **<DocsBenchmarkStat stat="turbopack-update-vs-vite" /> 快于 Vite** 。
 
 <DocsBenchmarksGraph category="file_change" bars={[
   {

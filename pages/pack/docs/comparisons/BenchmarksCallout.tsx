@@ -4,12 +4,9 @@ import Callout from "../../../../components/Callout";
 export default function BenchmarksCallout() {
   return (
     <Callout type="info">
-      Want to know more about Turbopack&apos;s benchmarking process and
-      philosophy?{" "}
+      若要了解更多关于 Turbopack 的性能对比与测试方法，您可查阅
       <Link href="../benchmarks">
-        <a className="nx-underline">
-          Learn more about Turbopack&apos;s benchmarking suite.
-        </a>
+        <a className="nx-underline">性能测试章节</a>
       </Link>
     </Callout>
   );
