@@ -9,23 +9,23 @@ import BenchmarksCallout from './BenchmarksCallout';
 
 # Turbopack vs Webpack
 
-Webpack has been downloaded over 3 billion times, making it today's most common JavaScript bundler. However, we found that we'd hit the limits of what it could do with its JavaScript-based architecture.
+Webpack 目前拥有超过 3 百万的下载量，它已是当下市占率最高的 JavaScript 构建工具。即便如此，我们已经碰到了基于 JavaScript 架构的瓶颈。
 
-We've built Turbopack as the successor of Webpack: much **faster**, but just as **flexible and extensible**.
+我们打造 Turbopack 想让它成为 Webpack 的接班人，它的速度更快并且灵活可拓展。
 
 <BenchmarksCallout />
 
-## Speed
+## 速度
 
-Turbopack's incremental architecture outstrips Webpack's speed on several key metrics.
+Turbopack 的递增式架构在多项关键指标上性能优于 Webpack。
 
-### Dev server startup time
+### 开发服务器启动时间
 
-The main problem we found with Webpack was development server startup time. If you end up importing a lot of modules in a certain page and open that page in your browser, the initial compile will take a few seconds. If you change routes in your development environment, you have to wait for a similar compile again for your new page.
+我们发现 Webpack 的问题主要在开发服务器启动时间上。如果你在一个页面引入了大量模块，这个页面在加载到浏览器时，需要等好几秒完成初次编译。如果你在开发环境里修改了路由，你又得重复等待新页面的编译。
 
-We designed Turbopack to be as lazy as possible, only doing work when it's requested. In a dev server, this means on incoming requests we do **exactly the work the user asked for**. No more unnecessary bundling of on demand loaded code before the user needs it. You can learn more in our [core concepts docs](/pack/docs/core-concepts#compiling-by-request).
+我们在设计 Turbopack 时，就想让它尽可能的「懒」—— 只有在收到请求时才会开始构建。这对于开发服务器来说，**构建任务基于用户请求**。在用户请求代码之前，代码不提前进行构建。你可以在[核心概念](/pack/docs/core-concepts#compiling-by-request)章节了解更多详情。
 
-This means that Turbopack's dev server starts up much faster than Webpack. Next.js 12, which uses Webpack under the hood, can start up a build server on a 1,000 module application in <DocsBenchmarkStat stat="next12-cold-1000" />. Turbopack starts up in <DocsBenchmarkStat stat="turbopack-cold-1000" /> - **<DocsBenchmarkStat stat="turbopack-cold-vs-next12" /> faster**.
+这意味着，Turbopack 的开发服务器要比 Webpack 的快得多。对于底层使用 Webpack 的 Next.js 12，启动一个有 1,000 模块的应用需要花费 <DocsBenchmarkStat stat="next12-cold-1000" />，而 Turbopack 仅需<DocsBenchmarkStat stat="turbopack-cold-1000" /> —— 要快出 **<DocsBenchmarkStat stat="turbopack-cold-vs-next12" />**。
 
 <DocsBenchmarksGraph category="cold" bars={[
   {
@@ -39,13 +39,13 @@ This means that Turbopack's dev server starts up much faster than Webpack. Next.
   }
 ]} />
 
-### Code updates
+### 代码更新
 
-As we continued to optimize Webpack, we found a performance ceiling on how much faster we could make Fast Refresh. With around 2,000 components, the best number we could produce was 500ms. This mark was a tremendous feat in Next.js 12. Previously, that process would have taken around 10 seconds.
+针对 Webpack 的进一步优化，我们发现可以在快速刷新上进一步突破瓶颈。对于刷新一个拥有约有 2,000 个组件的应用，我们测试能够达到的最佳结果是 500ms。这对于 Next.js 12 是一项巨大的更新，在此前这个过程需要花费大约 10 秒。
 
-With Turbopack, we achieved the goal we were aiming for: Fast Refresh performance that stays near-constant, no matter your application size. Instead of scaling with your application size, it scales based on the size of the _changes made_.
+打造 Turbopack 实现了我们过去一直在追求的目标：无论应用体积如何，快速更新都能保持其性能。影响更新性能的不再是你的应用体积，而是你 _对应用进行的修改_。
 
-In a 1,000 module application, Turbopack can react to file changes **<DocsBenchmarkStat stat="turbopack-update-vs-next12" /> faster** than Webpack. In a 30,000 module application, this is **<DocsBenchmarkStat stat="turbopack-update-vs-next12-30000" /> faster**.
+对于有 1,000 模块的应用，Turbopack 的文件更新可以比 Webpack 快出 **<DocsBenchmarkStat stat="turbopack-update-vs-next12" />**；对于有 30,000 模块的应用，Turbopack 可以快出 **<DocsBenchmarkStat stat="turbopack-update-vs-next12-30000" />**。
 
 <DocsBenchmarksGraph category="file_change" bars={[
   {
@@ -59,8 +59,8 @@ In a 1,000 module application, Turbopack can react to file changes **<DocsBenchm
   }
 ]} />
 
-## Extensibility
+## 拓展性
 
-Webpack has an extraordinary collection of [plugins](https://webpack.js.org/plugins/) to customize its behavior. Composing plugins lets you create custom toolchains which can support a huge variety of bundler features.
+Webpack 拥有丰富[插件](https://webpack.js.org/plugins/)拓展其功能。通过对插件的整合，你可以自行打造工具链获取各种构建功能支持。
 
-In its alpha state, Turbopack cannot currently be configured with plugins. In the future, we plan to make Turbopack just as extensible as Webpack - though likely with an altered API.
+Turbopack 目前处于 alpha 阶段，暂时不支持插件配置。未来，我们计划让 Turbopack 能够像 Webpack 一样具有拓展性，但是 API 很可能会进行变动。
