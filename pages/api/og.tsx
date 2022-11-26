@@ -77,7 +77,7 @@ export default async function openGraphImage(
     const title = hasTitle
       ? searchParams.get("title")?.slice(0, 100)
       : type === "pack"
-      ? "The successor to Webpack"
+      ? "Webpack 的接班人"
       : type === "repo"
       ? "代码交付，小菜一碟"
       : "";

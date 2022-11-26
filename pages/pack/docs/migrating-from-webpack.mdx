@@ -1,24 +1,24 @@
 ---
-title: Migrate from Webpack to Turbopack
-description: Learn about how to migrate from Webpack to its Rust-powered successor, Turbopack.
+title: 从 Webpack 移植到 Turbopack
+description: 了解关于从 Webpack 移植到它的接班人 Turbopack
 ---
 
 # 从 Webpack 移植到 Turbopack
 
-We're planning Turbopack as the successor to Webpack. In the future, we plan to give Turbopack all the tools needed to support your Webpack app.
+我们打算让 Turbopack 称为 Webpack 的接班人，在未来为 Turbopack 提供各种工具来支持你的 Webpack 应用。
 
-Currently, migrating to Turbopack from Webpack is **not yet possible**. In the future, we're planning to offer a smooth migration path for all Webpack users to join the Turbopack future.
+目前，暂不支持从 Webpack 移植到 Turbopack。未来，我们计划为所有的 Webpack 用户提供丝滑的移植体验。
 
-## Will it be compatible with Webpack's API?
+## Turbopack 会兼容 Webpack 的 API 么？
 
-Webpack has a huge API. It's extremely flexible and extensible, which is a big reason why it's so popular.
+Webpack 拥有很多 API，这让它能够进行灵活配置，也是它为什么这么出名的主要原因。
 
-We're planning on making Turbopack very flexible and extensible, but we're **not planning 1:1 compatibility with Webpack**. This lets us make choices which improve on Webpack's API, and lets us optimize for speed and efficiency.
+我们打算让 Turbopack 变得十分灵活可拓展，但我们没打算让它能够 1 比 1 兼容 Webpack。这样我们就能选择哪些 Webpack API 可以针对速度和效率上进行优化。
 
-## Will we be able to use Webpack plugins?
+## Turbopack 可以使用 Webpack 的插件么？
 
-Webpack plugins are a crucial part of Webpack's ecosystem. They let you customize your toolchain, giving you low-level tools to maximize your productivity.
+Webpack 插件对于整个 Webpack 生态环境是至关重要的。通过提供底层工具，你可以使用插件自定义工具链来最大化提升生产力。
 
-Since we're not offering 1:1 API compatibility, most Webpack plugins won't work out of the box with Turbopack.
+由于我们不打算为 Webpack 提供 1 比 1 的兼容，所以几乎 Webpack 插件都不能直接在 Turbopack 运行。
 
-However, we're working on porting several of the most popular Webpack plugins to Turbopack.
+但是，我们正在将一些知名的插件移植到 Turbopack。
